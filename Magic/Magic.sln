@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magic", "Magic\Magic.csproj", "{1EE2FD0B-4B6B-4ED5-A74A-CC7E4E070449}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CB440664-7D1B-4A6F-8483-76A7CAA02041} = {CB440664-7D1B-4A6F-8483-76A7CAA02041}
+		{A69DE872-BFD8-4AB6-A908-64100B02C08C} = {A69DE872-BFD8-4AB6-A908-64100B02C08C}
+		{A85D7CE4-5905-413D-8890-97F3609927FF} = {A85D7CE4-5905-413D-8890-97F3609927FF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magic_DAL", "Magic_DAL\Magic_DAL.csproj", "{CB440664-7D1B-4A6F-8483-76A7CAA02041}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A69DE872-BFD8-4AB6-A908-64100B02C08C} = {A69DE872-BFD8-4AB6-A908-64100B02C08C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magic_Interface", "Magic_Interface\Magic_Interface.csproj", "{A69DE872-BFD8-4AB6-A908-64100B02C08C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magic_Logic", "Magic_Logic\Magic_Logic.csproj", "{A85D7CE4-5905-413D-8890-97F3609927FF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A69DE872-BFD8-4AB6-A908-64100B02C08C} = {A69DE872-BFD8-4AB6-A908-64100B02C08C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magic_Test", "Magic_Test\Magic_Test.csproj", "{78E3BBE3-A2D8-44AF-AA45-80E1C0F6C6B2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CB440664-7D1B-4A6F-8483-76A7CAA02041} = {CB440664-7D1B-4A6F-8483-76A7CAA02041}
+		{A85D7CE4-5905-413D-8890-97F3609927FF} = {A85D7CE4-5905-413D-8890-97F3609927FF}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1EE2FD0B-4B6B-4ED5-A74A-CC7E4E070449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EE2FD0B-4B6B-4ED5-A74A-CC7E4E070449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EE2FD0B-4B6B-4ED5-A74A-CC7E4E070449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EE2FD0B-4B6B-4ED5-A74A-CC7E4E070449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB440664-7D1B-4A6F-8483-76A7CAA02041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB440664-7D1B-4A6F-8483-76A7CAA02041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB440664-7D1B-4A6F-8483-76A7CAA02041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB440664-7D1B-4A6F-8483-76A7CAA02041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A69DE872-BFD8-4AB6-A908-64100B02C08C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A69DE872-BFD8-4AB6-A908-64100B02C08C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A69DE872-BFD8-4AB6-A908-64100B02C08C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A69DE872-BFD8-4AB6-A908-64100B02C08C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A85D7CE4-5905-413D-8890-97F3609927FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A85D7CE4-5905-413D-8890-97F3609927FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A85D7CE4-5905-413D-8890-97F3609927FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A85D7CE4-5905-413D-8890-97F3609927FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78E3BBE3-A2D8-44AF-AA45-80E1C0F6C6B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78E3BBE3-A2D8-44AF-AA45-80E1C0F6C6B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78E3BBE3-A2D8-44AF-AA45-80E1C0F6C6B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78E3BBE3-A2D8-44AF-AA45-80E1C0F6C6B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {60B5DA0F-53D0-4F6E-8855-4B350A1B89B5}
+	EndGlobalSection
+EndGlobal

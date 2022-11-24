@@ -1,0 +1,5 @@
+C:\Users\yanni\Documents\school\semester 3\magic2\Magic-Backend\Magic\Magic_Test\obj\Debug\net6.0\Magic_Test.csproj.AssemblyReference.cache
+C:\Users\yanni\Documents\school\semester 3\magic2\Magic-Backend\Magic\Magic_Test\obj\Debug\net6.0\Magic_Test.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\yanni\Documents\school\semester 3\magic2\Magic-Backend\Magic\Magic_Test\obj\Debug\net6.0\Magic_Test.AssemblyInfoInputs.cache
+C:\Users\yanni\Documents\school\semester 3\magic2\Magic-Backend\Magic\Magic_Test\obj\Debug\net6.0\Magic_Test.AssemblyInfo.cs
+C:\Users\yanni\Documents\school\semester 3\magic2\Magic-Backend\Magic\Magic_Test\obj\Debug\net6.0\Magic_Test.csproj.CoreCompileInputs.cache
