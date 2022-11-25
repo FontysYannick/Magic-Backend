@@ -40,21 +40,6 @@ namespace Magic_Test
             Assert.AreEqual(products.Count, newproducts.Count);
         }
 
-        /*        [TestMethod]
-                public void TestCreateUser()
-                {
-                    ProductMSSQL testproduct = new ProductMSSQL("Server=mssqlstud.fhict.local;Database=dbi485146_AXI;User Id=dbi485146_AXI;Password=Welkom01;");
-
-                    //Arrange
-                    Product p1 = new Product(1, "Schroef", "A1", 34, 5, 5);
-
-                    //Act
-                    Product CreatedProduct = new Product(testproduct.Create(new ProductDTO(2, "Boor", "A2", 12, 5, 5)));
-
-                    //Assert
-                    Assert.AreEqual(p1.ProductGroup, CreatedProduct.ProductGroup);
-                }*/
-
         [TestMethod]
         public void TestGetProductById()
         {
