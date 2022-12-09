@@ -1,96 +1,154 @@
-﻿using Magic_Interface.DTO;
+﻿using Dapper;
+using Magic_Interface.DTO;
 using Magic_Interface.Interface;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+
 
 namespace Magic_DAL.Context
 {
     public class Product_Context : Database, IProduct
     {
         private readonly string connectionstring;
-        private readonly Database connection;
+        private readonly IDbConnection connection;
+
 
         public Product_Context(string cs)
         {
             connectionstring = cs;
-            connection = new Database(connectionstring);
+            connection = new System.Data.SqlClient.SqlConnection(cs);
         }
 
         //GetAll
         public List<ProductDTO> Getproducts()
         {
-            SqlConnection connection = new SqlConnection(connectionstring);
-            connection.Open();
-            List<ProductDTO> lijst = new List<ProductDTO>();
-            DataTable dt = new();
-            SqlDataAdapter da = new("SELECT * from Product", connectionstring);
-            da.Fill(dt);
-            foreach (DataRow dr in dt.Rows)
+            var sql = "SELECT * from Product";
+            List<ProductDTO> list = new List<ProductDTO>();
+
+            try
             {
-                lijst.Add(new ProductDTO(Convert.ToInt32(dr["ID"]), Convert.ToString(dr["Name"]), Convert.ToString(dr["Color"]), Convert.ToInt32(dr["Stock"])));
+                using (connection)
+                {
+                    //execute query on database and return result
+                    list = connection.Query<ProductDTO>(sql).ToList();
+                }
             }
-            connection.Close();
-            return lijst;
+
+            //catches exceptions
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            //closes database connection
+            finally
+            {
+                connection.Close();
+            }
+
+            return list;
         }
         public void Create(ProductDTO product)
         {
-            SqlConnection connection = new SqlConnection(connectionstring);
-            connection.Open();
-            SqlCommand command;
-            string sql = "INSERT INTO Product(Name, Color, Stock) VALUES(" +
-                "@Name," +
-                "@Color," +
-                "@Stock)";
+            var sql = "INSERT INTO Product(Name, Color, Stock) VALUES(@Name,@Color,@Stock)";
+            try
+            {
+                using (connection)
+                {
+                    //execute query on database and return result
+                    connection.Query<ProductDTO>(sql, new { Name = product.Name, Color = product.Color, Stock = product.Stock });
+                }
+            }
 
-            command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@Name", product.Name);
-            command.Parameters.AddWithValue("@Color", product.Color);
-            command.Parameters.AddWithValue("@Stock", product.Stock);
-            command.ExecuteNonQuery();
-            connection.Close();
+            //catches exceptions
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            //closes database connection
+            finally
+            {
+                connection.Close();
+            }
         }
         public void Delete(int id)
         {
-            SqlConnection connection = new SqlConnection(connectionstring);
-            connection.Open();
-            SqlCommand command;
-            string sql = "DELETE FROM Product WHERE ID = @ID";
+            var sql = "DELETE FROM Product WHERE ID = @ID";
+            try
+            {
+                using (connection)
+                {
+                    //execute query on database and return result
+                    connection.Query<ProductDTO>(sql, new { ID = id });
+                }
+            }
 
-            command = new SqlCommand(sql, connection);
+            //catches exceptions
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
-            command.Parameters.AddWithValue("@ID", id);
-            command.ExecuteNonQuery();
-            connection.Close();
+            //closes database connection
+            finally
+            {
+                connection.Close();
+            }
         }
         public void Update(ProductDTO product)
         {
-            SqlConnection connection = new SqlConnection(connectionstring);
-            connection.Open();
-            SqlCommand command;
-            string sql = "Update Product SET " +
-                "Name = @Name," +
-                "Color = @Color," +
-                "Stock = @Stock " +
-                "WHERE ID = '" + product.Id + "'";
+            var sql = "Update Product SET Name = @Name, Color = @Color, Stock = @Stock WHERE ID = '" + product.Id + "'";
 
-            command = new SqlCommand(sql, connection);
-            command.Parameters.AddWithValue("@Name", product.Name);
-            command.Parameters.AddWithValue("@Color", product.Color);
-            command.Parameters.AddWithValue("@Stock", product.Stock);
-            command.ExecuteNonQuery();
-            connection.Close();
+            try
+            {
+                using (connection)
+                {
+                    //execute query on database and return result
+                    connection.Query<ProductDTO>(sql, new { Name = product.Name, Color = product.Color, Stock = product.Stock });
+                }
+            }
+
+            //catches exceptions
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            //closes database connection
+            finally
+            {
+                connection.Close();
+            }
         }
         public ProductDTO GetProductById(int id)
         {
-            SqlConnection connection = new SqlConnection(connectionstring);
-            connection.Open();
-            string sql = "SELECT * FROM Product WHERE ID = '" + id + "'";
-            SqlCommand cmd = new SqlCommand(sql, connection);
-            SqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            connection.Close();
-            return new ProductDTO(reader.GetInt32("ID"), reader.GetString("Name"), reader.GetString("Color"), reader.GetInt32("Stock"));
+            ProductDTO prod = new ProductDTO();
+            var sql = "SELECT * FROM Product WHERE ID = '" + id + "'";
+
+            try
+            {
+                using (connection)
+                {
+                    //execute query on database and return result
+                    prod = connection.QuerySingle<ProductDTO>(sql);
+                }
+            }
+
+            //catches exceptions
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            //closes database connection
+            finally
+            {
+                connection.Close();
+            }
+
+            return prod;
         }
     }
 }

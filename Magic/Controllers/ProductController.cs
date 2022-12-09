@@ -36,14 +36,6 @@ namespace Magic.Controllers
             return json;
         }
 
-        [HttpGet]
-        [Route("api/[controller]orm")]
-        public IActionResult GetProduct()
-        {
-            return Ok(dbContext.Products.ToList());
-        }
-
-
         [HttpPost]
         [Route("api/[controller]")]
         public IActionResult CreateProduct(Product product)

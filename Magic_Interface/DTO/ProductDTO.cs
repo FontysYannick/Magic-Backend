@@ -7,6 +7,8 @@
         public string Color { get; set; }
         public int Stock { get; set; }
 
+        public ProductDTO() { }
+
         public ProductDTO(int id, string name, string color, int stock)
         {
             Id = id;
