@@ -1,6 +1,8 @@
 ﻿using Magic_DAL.Context;
 using Magic_Interface.DTO;
 using Magic_Logic.Classes;
+using Magic_Logic.Container;
+using Magic_Stub;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Magic_Test
@@ -9,49 +11,93 @@ namespace Magic_Test
     public class ProductTest
     {
         [TestMethod]
-        public void TestGetProductsFirstProductAndCount()
+        public void TestAddProduct()
         {
-            Product_Context testproduct = new Product_Context("Server=mssqlstud.fhict.local;Database=dbi485841_magic;User Id=dbi485841_magic;Password=Welkom01;");
-
             //Arrange
-            Product p1 = new Product(1, "Schroef", "1", 34);
-            Product p2 = new Product(2, "Bout", "1", 2);
-            Product p3 = new Product(3, "Plug", "2", 23);
-            Product p4 = new Product(4, "Boor", "2", 12);
-            List<Product> products = new();
-            products.Add(p1);
-            products.Add(p2);
-            products.Add(p3);
-            products.Add(p4);
+            Product product = new Product(4, "fourth", "Black", 5);
+            ProductStub stub = new ProductStub();
+            List<Product> products = new List<Product>();
+            Product_Container container = new Product_Container(stub);
 
             //Act
-            List<ProductDTO> products2 = testproduct.Getproducts();
-            List<Product> newproducts = new();
-
-            foreach (ProductDTO product in products2)
-            {
-                Product newproduct = new Product(product);
-                newproducts.Add(newproduct);
-            }
-
+            container.Create(product);
+            products = container.Getproducts();
 
             //Assert
-            Assert.AreEqual(products[0].Name, newproducts[0].Name);
-            Assert.AreEqual(products.Count, newproducts.Count);
+            Assert.IsNotNull(products);
+            Assert.AreEqual(4, products.Count);
+            Assert.AreEqual("fourth", products[3].Name);
+        }
+
+        [TestMethod]
+        public void TestDeleteProduct()
+        {
+            //Arrange
+            ProductStub stub = new ProductStub();
+            List<Product> products = new List<Product>();
+            Product_Container container = new Product_Container(stub);
+
+            //Act
+            container.Delete(3);
+            products = container.Getproducts();
+
+            //Assert
+            Assert.IsNotNull(products);
+            Assert.AreEqual(2, products.Count);
+            Assert.ThrowsException<NullReferenceException>(() => container.GetProductById(3));
+        }
+
+        [TestMethod]
+        public void TestUpdateProduct()
+        {
+            //Arrange
+            Product product = new Product(3, "fourth", "Black", 5);
+            ProductStub stub = new ProductStub();
+            List<Product> products = new List<Product>();
+            Product_Container container = new Product_Container(stub);
+
+            //Act
+            container.Update(product);
+            products = container.Getproducts();
+
+            //Assert
+            Assert.IsNotNull(products);
+            Assert.AreEqual(3, products.Count);
+            Assert.AreEqual("fourth", products[2].Name);
+        }
+
+        [TestMethod]
+        public void TestGetProducts()
+        {
+            //Arrange
+            ProductStub stub = new ProductStub();
+            List<Product> products = new List<Product>();
+            Product_Container container = new Product_Container(stub);
+
+            //Act
+            products = container.Getproducts();
+
+            //Assert
+            Assert.IsNotNull(products);
+            Assert.AreEqual(3, products.Count);
         }
 
         [TestMethod]
         public void TestGetProductById()
         {
-            Product_Context testproduct = new Product_Context("Server=mssqlstud.fhict.local;Database=dbi485841_magic;User Id=dbi485841_magic;Password=Welkom01;");
             //Arrange
-            Product p1 = new Product(1, "Schroef", "1", 34);
+            Product products = new Product();
+            ProductStub stub = new ProductStub();
+            Product_Container container = new Product_Container(stub);
 
             //Act
-            Product searchedProduct = new Product(testproduct.GetProductById(1));
+            products = container.GetProductById(1);
 
             //Assert
-            Assert.AreEqual(p1.Name, searchedProduct.Name);
+            Assert.IsNotNull(products);
+            Assert.AreEqual("First", products.Name);
+            Assert.AreEqual("Blue", products.Color);
+            Assert.AreEqual(21, products.Stock);
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Magic_Logic.Container
             this.container = container;
         }
 
-
         public List<Product> Getproducts()
         {
             List<ProductDTO> dtos = container.Getproducts();
