@@ -7,25 +7,24 @@ using System.Text.Json;
 
 namespace Magic.Controllers
 {
-    //[Route("api/[controller]")]
     [ApiController]
     [EnableCors]
-    public class ProductController : ControllerBase
+    public class CartController : ControllerBase
     {
-        private Product_Container pc;
+        private Cart_Container cc;
         private readonly IConfiguration configuration;
 
-        public ProductController(IConfiguration ic)
+        public CartController(IConfiguration ic)
         {
             configuration = ic;
-            pc = new(new Product_Context(configuration["db:ConnectionString"]));
+            cc = new(new Cart_Context(configuration["db:ConnectionString"]));
         }
 
         [HttpGet]
         [Route("api/[controller]")]
-        public string JsonConverter()
+        public string GetCart(int id)
         {
-            List<Product> products = pc.Getproducts();
+            List<Product> products = cc.GetProductsFromCart(id);
 
             var json = JsonSerializer.Serialize(products);
             return json;
@@ -33,11 +32,11 @@ namespace Magic.Controllers
 
         [HttpPost]
         [Route("api/[controller]")]
-        public IActionResult CreateProduct(Product product)
+        public IActionResult CreateCart(Product product, int user)
         {
             try
             {
-                pc.Create(product);
+                cc.Create(product, user);
                 return Ok(product);
             }
             catch
@@ -48,27 +47,12 @@ namespace Magic.Controllers
 
         [HttpDelete]
         [Route("api/[controller]")]
-        public IActionResult DeleteProduct(Product product)
+        public IActionResult DeleteCart(int id)
         {
             try
             {
-                pc.Delete(product.Id);
-                return Ok(product.Id);
-            }
-            catch
-            {
-                return Unauthorized();
-            }
-        }
-
-        [HttpPatch]
-        [Route("api/[controller]")]
-        public IActionResult UpdateProduct(Product product)
-        {
-            try
-            {
-                pc.Update(product);
-                return Ok(product);
+                cc.Delete(id);
+                return Ok(id);
             }
             catch
             {

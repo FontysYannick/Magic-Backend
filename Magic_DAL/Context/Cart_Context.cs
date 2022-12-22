@@ -1,35 +1,33 @@
 ﻿using Dapper;
 using Magic_Interface.DTO;
 using Magic_Interface.Interface;
+using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 
 namespace Magic_DAL.Context
 {
-    public class Product_Context : Database, IProduct
+    public class Cart_Context : ICart
     {
         private readonly IDbConnection connection;
 
-
-        public Product_Context(string cs)
+        public Cart_Context(string cs)
         {
             connection = new System.Data.SqlClient.SqlConnection(cs);
         }
 
-        //GetAll
-        public List<ProductDTO> Getproducts()
+        public void Create(ProductDTO product, int user)
         {
-            var sql = "SELECT * from Product";
-            List<ProductDTO> list = new List<ProductDTO>();
-
+            var sql = "INSERT INTO Cart(User, Product) VALUES(@User,@Product)";
             try
             {
                 using (connection)
                 {
                     //execute query on database and return result
-                    list = connection.Query<ProductDTO>(sql).ToList();
+                    connection.Query<ProductDTO>(sql, new { User = user, Product = product.Id});
                 }
             }
 
@@ -43,37 +41,12 @@ namespace Magic_DAL.Context
             finally
             {
                 connection.Close();
-            }
-
-            return list;
+            }        
         }
-        public void Create(ProductDTO product)
-        {
-            var sql = "INSERT INTO Product(Name, Color, Stock) VALUES(@Name,@Color,@Stock)";
-            try
-            {
-                using (connection)
-                {
-                    //execute query on database and return result
-                    connection.Query<ProductDTO>(sql, new { Name = product.Name, Color = product.Color, Stock = product.Stock });
-                }
-            }
 
-            //catches exceptions
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            //closes database connection
-            finally
-            {
-                connection.Close();
-            }
-        }
         public void Delete(int id)
         {
-            var sql = "DELETE FROM Product WHERE ID = @ID";
+            var sql = "DELETE FROM Cart WHERE ID = @ID";
             try
             {
                 using (connection)
@@ -95,16 +68,17 @@ namespace Magic_DAL.Context
                 connection.Close();
             }
         }
-        public void Update(ProductDTO product)
-        {
-            var sql = "Update Product SET Name = @Name, Color = @Color, Stock = @Stock WHERE ID = '" + product.Id + "'";
 
+        public CartDTO GetCart(int user)
+        {
+            string sql = "SELECT * FROM Cart WHERE UserID = @User";
+            List<CartDTO> cartDTOs = new List<CartDTO>();
             try
             {
                 using (connection)
                 {
                     //execute query on database and return result
-                    connection.Query<ProductDTO>(sql, new { Name = product.Name, Color = product.Color, Stock = product.Stock });
+                    cartDTOs = connection.Query<CartDTO>(sql, new { User = user }).ToList();
                 }
             }
 
@@ -119,18 +93,20 @@ namespace Magic_DAL.Context
             {
                 connection.Close();
             }
+            return cartDTOs[1];
         }
-        public ProductDTO GetProductById(int id)
+
+        public List<ProductDTO> GetProductsFromCart(int id)
         {
-            ProductDTO prod = new ProductDTO();
-            var sql = "SELECT * FROM Product WHERE ID = '" + id + "'";
+            string sql = "SELECT Product.* FROM Product JOIN Cart on Cart.ProductID = Product.ID WHERE UserID = @id";
+            List<ProductDTO> productDTOs = new List<ProductDTO>();
 
             try
             {
                 using (connection)
                 {
                     //execute query on database and return result
-                    prod = connection.QuerySingle<ProductDTO>(sql);
+                    productDTOs = connection.Query<ProductDTO>(sql, new { id = id }).ToList();
                 }
             }
 
@@ -145,8 +121,32 @@ namespace Magic_DAL.Context
             {
                 connection.Close();
             }
+            return productDTOs;
+        }
 
-            return prod;
+        public void Update(ProductDTO product, int user)
+        {
+            var sql = "Update Cart SET Aantal = @aantal WHERE ID = '" + product.Id + "'";
+            try
+            {
+                using (connection)
+                {
+                    //execute query on database and return result
+                    connection.Query<ProductDTO>(sql, new { aantal = product.Stock });
+                }
+            }
+
+            //catches exceptions
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            //closes database connection
+            finally
+            {
+                connection.Close();
+            }
         }
     }
 }
