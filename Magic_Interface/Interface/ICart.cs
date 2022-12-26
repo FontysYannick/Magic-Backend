@@ -11,7 +11,7 @@ namespace Magic_Interface.Interface
     {
         public CartDTO GetCart(int user);
         public void Create(ProductDTO product, int user);
-        public void Delete(int id);
+        public void Delete(ProductDTO product, int user);
         public void Update(ProductDTO product, int user);
         public List<ProductDTO> GetProductsFromCart(int id);
     }

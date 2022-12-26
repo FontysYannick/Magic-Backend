@@ -47,12 +47,12 @@ namespace Magic.Controllers
 
         [HttpDelete]
         [Route("api/[controller]")]
-        public IActionResult DeleteCart(int id)
+        public IActionResult DeleteCart(Product product, int user)
         {
             try
             {
-                cc.Delete(id);
-                return Ok(id);
+                cc.Delete(product, user);
+                return Ok(product);
             }
             catch
             {

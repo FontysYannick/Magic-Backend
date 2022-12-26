@@ -28,9 +28,9 @@ namespace Magic_Logic.Container
             container.Create(product.GetDTO(), user);
         }
 
-        public void Delete(int id)
+        public void Delete(Product product, int user)
         {
-            container.Delete(id);
+            container.Delete(product.GetDTO(), user);
         }
 
         public void Update(Product product, int user)

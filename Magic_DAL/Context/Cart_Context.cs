@@ -21,13 +21,13 @@ namespace Magic_DAL.Context
 
         public void Create(ProductDTO product, int user)
         {
-            var sql = "INSERT INTO Cart(User, Product) VALUES(@User,@Product)";
+            var sql = "INSERT INTO Cart([UserID], ProductID) VALUES(@User,@Product)";
             try
             {
                 using (connection)
                 {
                     //execute query on database and return result
-                    connection.Query<ProductDTO>(sql, new { User = user, Product = product.Id});
+                    connection.Query(sql, new { User = user, Product = product.Id});
                 }
             }
 
@@ -44,15 +44,15 @@ namespace Magic_DAL.Context
             }        
         }
 
-        public void Delete(int id)
+        public void Delete(ProductDTO product, int user)
         {
-            var sql = "DELETE FROM Cart WHERE ID = @ID";
+            var sql = "DELETE FROM Cart WHERE [UserID] = @User AND ProductID = @Product";
             try
             {
                 using (connection)
                 {
                     //execute query on database and return result
-                    connection.Query<ProductDTO>(sql, new { ID = id });
+                    connection.Query(sql, new { User = user, Product = product.Id });
                 }
             }
 
