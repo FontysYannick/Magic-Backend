@@ -2,8 +2,6 @@
 using Magic_Interface.DTO;
 using Magic_Interface.Interface;
 using System.Data;
-using System.Data.SqlClient;
-using System.Text;
 
 
 namespace Magic_DAL.Context

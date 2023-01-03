@@ -1,6 +1,4 @@
-﻿using Magic_DAL.Context;
-using Magic_Interface.DTO;
-using Magic_Logic.Classes;
+﻿using Magic_Logic.Classes;
 using Magic_Logic.Container;
 using Magic_Stub;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

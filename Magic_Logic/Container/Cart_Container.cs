@@ -1,11 +1,6 @@
 ﻿using Magic_Interface.DTO;
 using Magic_Interface.Interface;
 using Magic_Logic.Classes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Magic_Logic.Container
 {
@@ -20,7 +15,7 @@ namespace Magic_Logic.Container
 
         public Cart GetCart(int user)
         {
-           return new Cart(container.GetCart(user));
+            return new Cart(container.GetCart(user));
         }
 
         public void Create(Product product, int user)

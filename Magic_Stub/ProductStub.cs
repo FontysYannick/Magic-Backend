@@ -1,10 +1,5 @@
 ﻿using Magic_Interface.DTO;
 using Magic_Interface.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Magic_Stub
 {

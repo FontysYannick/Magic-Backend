@@ -1,12 +1,7 @@
 ﻿using Dapper;
 using Magic_Interface.DTO;
 using Magic_Interface.Interface;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Magic_DAL.Context
 {
@@ -27,7 +22,7 @@ namespace Magic_DAL.Context
                 using (connection)
                 {
                     //execute query on database and return result
-                    connection.Query(sql, new { User = user, Product = product.Id});
+                    connection.Query(sql, new { User = user, Product = product.Id });
                 }
             }
 
@@ -41,7 +36,7 @@ namespace Magic_DAL.Context
             finally
             {
                 connection.Close();
-            }        
+            }
         }
 
         public void Delete(ProductDTO product, int user)

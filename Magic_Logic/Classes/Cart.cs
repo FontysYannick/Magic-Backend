@@ -1,9 +1,4 @@
 ﻿using Magic_Interface.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Magic_Logic.Classes
 {
@@ -23,7 +18,7 @@ namespace Magic_Logic.Classes
         }
 
         public Cart(CartDTO dto)
-        { 
+        {
             this.Id = dto.Id;
             this.UserId = dto.UserId;
         }
